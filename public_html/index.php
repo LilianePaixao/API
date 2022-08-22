@@ -1,7 +1,48 @@
 <?php
-//conexão
-include_once 'db_connect.php';
-include_once 'execute_connection.php';
+    header('Content-Type: application/json');
+
+    include_once '../vendor/autoload.php';
+
+    //conexão
+    include_once 'db_connect.php';
+    include_once 'execute_connection.php';
+
+    //import autoload
+    include_once '../vendor/autoload.php';
+
+    //api/triangulo/rota 1 = recebe as informações 
+    if ($_POST['url']){
+        $url = explode('/',$_GET['url']);
+
+        if ($url[0] === 'api'){
+            array_shift($url);
+            
+            $service = 'firstApi\services\\'.($url[0]).'Service';
+            array_shift($url);
+
+            $method = strolower($_SERVER['REQUEST_METHOD']);
+
+            //chamar o serviço que o usuário indicou na url
+
+            try {
+                //chama o serviço de acordo com a url que o usuário preencheu
+                //cria um objeto
+                $response = call_user_func_array(array(new $service, $method), $url);
+                
+                http_response_code(200);
+                echo json_encode(array('status' => 'sucess', 'data' => $response));
+                exit;
+            } catch (\Exception $e) {
+                //quando ocorrer um erro cai aqui .: id que não existe
+                http_response_code(404);
+                echo json_encode(array('status' => 'error', 'data' => $e->getMessage()), JSON_UNESCAPE_UNICODE);
+                exit;
+            }
+
+        }
+    }
+
+  
 ?>
 
 <!DOCTYPE html>

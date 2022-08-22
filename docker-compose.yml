@@ -4,10 +4,10 @@ services:
     image: mysql:8.0
     command:  --default-authentication-plugin=mysql_native_password
     environment: 
-      MYSQL_ROOT_PASSWORD: L1l1@n3
-      MYSQL_DATABASE: exercicios
-      MYSQL_USER: acf
-      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: a1GiLH@6J8Eu
+      MYSQL_DATABASE: cash
+      MYSQL_USER: teste
+      MYSQL_PASSWORD: qWIW4x@sd60
     ports:
       - 5555:3306
 
